@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\DDD\Otus\Domain\ValueObject;
 
-class Phone
+abstract class AbstractInn
 {
-    private string $value;
+    protected string $value;
 
     /**
      * @param string $value
      */
     public function __construct(string $value)
     {
-        $this->assertValidPhone($value);
+        $this->assertInnIsValid($value);
         $this->value = $value;
     }
 
@@ -24,10 +24,6 @@ class Phone
         return $this->value;
     }
 
-    private function assertValidPhone(string $value)
-    {
-        if (!preg_match('/^\d{10}$/', $value)) {
-            throw new \InvalidArgumentException("Телефон должен содержать 10 цифр");
-        }
-    }
+    abstract protected function assertInnIsValid(string $value);
+
 }
